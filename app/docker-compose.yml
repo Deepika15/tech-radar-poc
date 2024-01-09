@@ -1,0 +1,39 @@
+version: '3.'
+services:
+
+  server:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    networks:
+      - tech-radar-network
+    volumes:
+      - /Users/deepika/Documents/My_Workspace/tech-radar/app/backend/public
+    environment:
+      MONGO_URL: mongodb://localhost:27017/?retryWrites=true&loadBalanced=false&serverSelectionTimeoutMS=5000&connectTimeoutMS=10000
+      DB_NAME: test
+      NAME: backend
+    command: npm start
+
+  client:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    networks:
+      - tech-radar-network
+    volumes:
+      - /Users/deepika/Documents/My_Workspace/tech-radar/app/frontend/public
+    depends_on:
+      - server
+    command: npm run dev
+    stdin_open: true
+    tty: true
+
+networks:
+  tech-radar-network:
+    name: tech-radar-network
+    driver: bridge

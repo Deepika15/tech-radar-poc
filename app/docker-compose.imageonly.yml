@@ -1,0 +1,46 @@
+version: '3.9'
+services:
+
+  server:
+    # build:
+    #   context: ./backend
+    #   dockerfile: Dockerfile
+
+    # Note: i uploaded the client,server and mongo images into a single repo. Thus i use tag name to specify the different images. (Not really "correct")
+    # Also, I should have specfied the dockerhub registry rather than manually pulling the images into the ec2 instance.
+    image: tmotlim/tech-radar-docker-repo:app_server
+    # network_mode: "host"
+    ports:
+      - 5000:5000
+    networks:
+      - tech-radar-network
+    # volumes:
+    #   - ./backend/public
+    environment:
+      MONGO_URL: mongodb://localhost:27017/?retryWrites=true&loadBalanced=false&serverSelectionTimeoutMS=5000&connectTimeoutMS=10000
+      DB_NAME: test
+      NAME: backend
+    command: npm start
+
+  client:
+    # build:
+    #   context: ./frontend
+    #   dockerfile: Dockerfile
+    image: tmotlim/tech-radar-docker-repo:app_client
+    # network_mode: "host"
+    ports:
+      - 80:8080
+    networks:
+      - tech-radar-network
+    # volumes:
+    #   - ./frontend/public
+    depends_on:
+      - server
+    command: npm run dev
+    stdin_open: true
+    tty: true
+
+networks:
+  tech-radar-network:
+    name: tech-radar-network
+    driver: bridge
