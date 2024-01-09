@@ -1,5 +1,5 @@
 # Introduction
-BOS Tech Radar 2.0 provides a 'at-a-glance' view  of the various softwares, tools, platforms and techniques used within an organisation. This library generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
+Tech Radar 2.0 provides a 'at-a-glance' view  of the various softwares, tools, platforms and techniques used within an organisation. This library generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
 
 # How To Use
 

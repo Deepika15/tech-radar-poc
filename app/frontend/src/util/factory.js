@@ -27,7 +27,7 @@ const SERVER_URL = "http://localhost:5000";
 const plotRadar = function (blips, currentRadarName, alternativeRadars) {
 
   //Radar name goes here
-  document.title = "BOS Tech Radar 2.0"
+  document.title = "Tech Radar 2.0"
   d3.selectAll('.loading').remove()
 
   var rings = _.map(_.uniqBy(blips, 'ring'), 'ring')
